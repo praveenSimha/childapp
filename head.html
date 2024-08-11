@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ouchie Talkie - Head Pain Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Head Pain Quiz</h1>
+
+        <form id="painQuiz">
+            <!-- Head Pain Questions -->
+            <div class="question">
+                <h2>Head</h2>
+
+                <p>Does your head hurt?</p>
+                <input type="radio" name="head_hurt" value="yes"> Yes<br>
+                <input type="radio" name="head_hurt" value="no"> No
+
+                <p>Does your head hurt when you are in bright lights or loud noises?</p>
+                <input type="radio" name="head_lights_noises" value="yes"> Yes<br>
+                <input type="radio" name="head_lights_noises" value="no"> No
+
+                <p>Does your head hurt more when you move around or play?</p>
+                <input type="radio" name="head_movement" value="yes"> Yes<br>
+                <input type="radio" name="head_movement" value="no"> No
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Get Results</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('painQuiz').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get form data
+            var formData = new FormData(event.target);
+
+            // Check if all questions are answered
+            if (!formData.has('head_hurt') || !formData.has('head_lights_noises') || !formData.has('head_movement')) {
+                alert('Please answer all questions.');
+                return;
+            }
+
+            // Process form data
+            var headHurt = formData.get('head_hurt');
+            var headLightsNoises = formData.get('head_lights_noises');
+            var headMovement = formData.get('head_movement');
+
+            // Count the number of "yes" responses
+            var yesCount = [headHurt, headLightsNoises, headMovement].filter(answer => answer === 'yes').length;
+
+            // Generate result message based on the count of "yes" answers
+            var resultMessage = '';
+
+            if (headHurt === 'no' && headLightsNoises === 'no' && headMovement === 'no') {
+                resultMessage = 'You have no issues with your head. If you experience any discomfort, please consult a healthcare professional.';
+            } else if (yesCount === 1) {
+                resultMessage = 'You may have a mild headache. If the discomfort persists, consult a healthcare professional.';
+            } else if (yesCount === 2) {
+                resultMessage = 'You have multiple symptoms related to headaches. Please consult a healthcare professional for a thorough evaluation.';
+            } else if (yesCount === 3) {
+                resultMessage = 'You have significant symptoms related to headaches. Immediate consultation with a healthcare professional is recommended.';
+            }
+
+            // Store result message in local storage and redirect to report.html
+            localStorage.setItem('resultMessage', resultMessage);
+            window.location.href = 'report.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+/* General styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #e0f7fa, #b9fbc0);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    animation: backgroundAnimation 15s infinite alternate;
+}
+
+/* Animation for background gradient */
+@keyframes backgroundAnimation {
+    0% {
+        background: linear-gradient(to right, #e0f7fa, #b9fbc0);
+    }
+    100% {
+        background: linear-gradient(to right, #b9fbc0, #e0f7fa);
+    }
+}
+
+/* Container styles */
+.user-details {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+}
+
+/* Hover effect for container */
+.user-details:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Heading styles */
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 30px;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Form input styles */
+input[type="text"],
+input[type="number"] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+/* Gender selection styles */
+.gender-selection {
+    margin: 15px 0;
+    text-align: left;
+}
+
+.gender-selection label {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+/* Button styles */
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .user-details {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 16px;
+    }
+}

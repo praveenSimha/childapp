@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ouchie Talkie - Teeth Pain Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Teeth Pain Quiz</h1>
+
+        <form id="painQuiz">
+            <!-- Teeth Pain Questions -->
+            <div class="question">
+                <h2>Teeth</h2>
+
+                <p>Does your tooth hurt?</p>
+                <input type="radio" name="tooth_hurt" value="yes"> Yes<br>
+                <input type="radio" name="tooth_hurt" value="no"> No
+
+                <p>Do you feel pain when you eat or drink something hot or cold?</p>
+                <input type="radio" name="pain_hot_cold" value="yes"> Yes<br>
+                <input type="radio" name="pain_hot_cold" value="no"> No
+
+                <p>Do you have pain in your tooth when you touch it or press on it?</p>
+                <input type="radio" name="tooth_touch_pain" value="yes"> Yes<br>
+                <input type="radio" name="tooth_touch_pain" value="no"> No
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Get Results</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('painQuiz').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get form data
+            var formData = new FormData(event.target);
+
+            // Check if all questions are answered
+            if (!formData.has('tooth_hurt') || !formData.has('pain_hot_cold') || !formData.has('tooth_touch_pain')) {
+                alert('Please answer all questions.');
+                return;
+            }
+
+            // Process form data
+            var toothHurt = formData.get('tooth_hurt');
+            var painHotCold = formData.get('pain_hot_cold');
+            var toothTouchPain = formData.get('tooth_touch_pain');
+
+            // Count the number of "yes" responses
+            var yesCount = [toothHurt, painHotCold, toothTouchPain].filter(answer => answer === 'yes').length;
+
+            // Generate result message based on the count of "yes" answers
+            var resultMessage = '';
+
+            if (toothHurt === 'no' && painHotCold === 'no' && toothTouchPain === 'no') {
+                resultMessage = 'You have no issues with your teeth. If you experience any discomfort, please consult a healthcare professional.';
+            } else if (yesCount === 1) {
+                resultMessage = 'You might be experiencing mild tooth discomfort. Consider seeing a dentist if symptoms persist.';
+            } else if (yesCount === 2) {
+                resultMessage = 'You have multiple symptoms related to teeth pain. Please consult a dentist for a thorough evaluation.';
+            } else if (yesCount === 3) {
+                resultMessage = 'You have significant symptoms related to teeth pain. Immediate consultation with a dentist is recommended.';
+            }
+
+            // Store result message in local storage and redirect to report.html
+            localStorage.setItem('resultMessage', resultMessage);
+            window.location.href = 'report.html';
+        });
+    </script>
+</body>
+</html>

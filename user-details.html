@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <link rel="stylesheet" href="us.css">
+    <script>
+        // Handle form submission
+        function handleFormSubmit(event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            // Get user details from form
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+
+            // Validate age
+            if (age < 6 || age > 16) {
+                alert('Age must be between 6 and 16.');
+                return;
+            }
+
+            // Store user details in local storage
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userAge', age);
+            localStorage.setItem('userGender', gender);
+
+            // Redirect to the symptom checker page
+            window.location.href = "symptom-checker.html";
+        }
+    </script>
+</head>
+<body>
+    <div class="user-details">
+        <h2>Enter Your Details</h2>
+        <form id="user-form" onsubmit="handleFormSubmit(event)">
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="number" id="age" placeholder="Age" min="6" max="16" required>
+            <div class="gender-selection">
+                <label>
+                    <input type="radio" name="gender" value="male" required> Male
+                </label>
+                <label>
+                    <input type="radio" name="gender" value="female" required> Female
+                </label>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

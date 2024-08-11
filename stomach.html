@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ouchie Talkie - Stomach Pain Quiz</title>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Stomach Pain Quiz</h1>
+
+        <form id="painQuiz">
+            <!-- Stomach Pain Questions -->
+            <div class="question">
+                <h2>Stomach</h2>
+
+                <p>Does your stomach hurt?</p>
+                <input type="radio" name="stomach_hurt" value="yes"> Yes<br>
+                <input type="radio" name="stomach_hurt" value="no"> No
+
+                <p>Does your stomach hurt more after eating or drinking?</p>
+                <input type="radio" name="stomach_after_eating" value="yes"> Yes<br>
+                <input type="radio" name="stomach_after_eating" value="no"> No
+
+                <p>Do you feel pain in the lower part of your stomach?</p>
+                <input type="radio" name="stomach_lower_pain" value="yes"> Yes<br>
+                <input type="radio" name="stomach_lower_pain" value="no"> No
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Get Results</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('painQuiz').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get form data
+            var formData = new FormData(event.target);
+
+            // Check if all questions are answered
+            if (!formData.has('stomach_hurt') || !formData.has('stomach_after_eating') || !formData.has('stomach_lower_pain')) {
+                alert('Please answer all questions.');
+                return;
+            }
+
+            // Process form data
+            var stomachHurt = formData.get('stomach_hurt');
+            var stomachAfterEating = formData.get('stomach_after_eating');
+            var stomachLowerPain = formData.get('stomach_lower_pain');
+
+            // Count the number of "yes" responses
+            var yesCount = [stomachHurt, stomachAfterEating, stomachLowerPain].filter(answer => answer === 'yes').length;
+
+            // Generate result message based on the count of "yes" answers
+            var resultMessage = '';
+
+            if (stomachHurt === 'no' && stomachAfterEating === 'no' && stomachLowerPain === 'no') {
+                resultMessage = 'You have no issues with your stomach. If you experience any discomfort, please consult a healthcare professional.';
+            } else if (yesCount === 1) {
+                resultMessage = 'You may have a mild stomach issue. Please consult a healthcare professional if the discomfort persists.';
+            } else if (yesCount === 2) {
+                resultMessage = 'You have multiple symptoms related to your stomach health. Please consult a healthcare professional for further evaluation.';
+            } else if (yesCount === 3) {
+                resultMessage = 'You have significant symptoms related to your stomach health. Please consult a healthcare professional immediately.';
+            }
+
+            // Store result message in local storage and redirect to report.html
+            localStorage.setItem('resultMessage', resultMessage);
+            window.location.href = 'report.html';
+        });
+    </script>
+</body>
+</html>

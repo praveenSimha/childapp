@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ouchie Talkie - Report</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .user-details, .report-content {
+            margin-bottom: 20px;
+        }
+
+        .user-details p, .report-content p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .user-details {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
+        }
+
+        .report-content {
+            border-top: 2px solid #e0e0e0;
+            padding-top: 15px;
+        }
+
+        .btn-return-home {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 20px;
+        }
+
+        .btn-return-home:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Health Report</h1>
+        <div class="user-details">
+            <h2>User Details</h2>
+            <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
+            <p><strong>Age:</strong> <span id="userAge">Loading...</span></p>
+            <p><strong>Gender:</strong> <span id="userGender">Loading...</span></p>
+        </div>
+        <div class="report-content">
+            <h2>Report Summary</h2>
+            <p id="resultMessage">Loading results...</p>
+        </div>
+        <a href="user-details.html" class="btn-return-home">Return to Home</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Retrieve user details from local storage
+            var userName = localStorage.getItem('userName');
+            var userAge = localStorage.getItem('userAge');
+            var userGender = localStorage.getItem('userGender');
+            var resultMessage = localStorage.getItem('resultMessage');
+
+            // Update user details and result message in the report
+            document.getElementById('userName').textContent = userName || 'No data available';
+            document.getElementById('userAge').textContent = userAge || 'No data available';
+            document.getElementById('userGender').textContent = userGender || 'No data available';
+            document.getElementById('resultMessage').textContent = resultMessage || 'No results available.';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ouchie Talkie - Ear Pain Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ear Pain Quiz</h1>
+
+        <form id="painQuiz">
+            <!-- Ear Pain Questions -->
+            <div class="question">
+                <h2>Ear</h2>
+
+                <p>Do you have pain in your ear?</p>
+                <input type="radio" name="ear_pain" value="yes"> Yes<br>
+                <input type="radio" name="ear_pain" value="no"> No
+
+                <p>Do you have any discharge from your ear?</p>
+                <input type="radio" name="ear_discharge" value="yes"> Yes<br>
+                <input type="radio" name="ear_discharge" value="no"> No
+
+                <p>Is your ear sensitive to touch?</p>
+                <input type="radio" name="ear_sensitivity" value="yes"> Yes<br>
+                <input type="radio" name="ear_sensitivity" value="no"> No
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Get Results</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('painQuiz').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get form data
+            var formData = new FormData(event.target);
+
+            // Check if all questions are answered
+            if (!formData.has('ear_pain') || !formData.has('ear_discharge') || !formData.has('ear_sensitivity')) {
+                alert('Please answer all questions.');
+                return;
+            }
+
+            // Process form data
+            var earPain = formData.get('ear_pain');
+            var earDischarge = formData.get('ear_discharge');
+            var earSensitivity = formData.get('ear_sensitivity');
+
+            // Generate result message based on responses
+            var resultMessage = '';
+
+            if (earPain === 'no' && earDischarge === 'no' && earSensitivity === 'no') {
+                resultMessage = 'You have no issues with your ear. If you experience any discomfort, please consult a healthcare professional.';
+            } else if (earPain === 'yes' || earDischarge === 'yes' || earSensitivity === 'yes') {
+                resultMessage = 'You may have a problem with your ear. Please consult a healthcare professional.';
+            } else if (earPain === 'yes' && earDischarge === 'yes' && earSensitivity === 'yes') {
+                resultMessage = 'You have multiple issues with your ear. Please consult a healthcare professional immediately.';
+            }
+
+            // Store result message in local storage
+            localStorage.setItem('resultMessage', resultMessage);
+
+            // Redirect to report.html
+            window.location.href = 'report.html';
+        });
+    </script>
+</body>
+</html>

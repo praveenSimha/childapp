@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ouchie Talkie - Urinary Pain Quiz</title>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Urinary Pain Quiz</h1>
+
+        <form id="painQuiz">
+            <!-- Urinary Pain Questions -->
+            <div class="question">
+                <h2>Urinary</h2>
+
+                <p>Does it hurt when you go to the bathroom?</p>
+                <input type="radio" name="bathroom_hurt" value="yes"> Yes<br>
+                <input type="radio" name="bathroom_hurt" value="no"> No
+
+                <p>Do you feel a burning sensation when you pee?</p>
+                <input type="radio" name="burning_sensation" value="yes"> Yes<br>
+                <input type="radio" name="burning_sensation" value="no"> No
+
+                <p>Do you have pain or discomfort in your pelvic area?</p>
+                <input type="radio" name="pelvic_discomfort" value="yes"> Yes<br>
+                <input type="radio" name="pelvic_discomfort" value="no"> No
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Get Results</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('painQuiz').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get form data
+            var formData = new FormData(event.target);
+
+            // Check if all questions are answered
+            if (!formData.has('bathroom_hurt') || !formData.has('burning_sensation') || !formData.has('pelvic_discomfort')) {
+                alert('Please answer all questions.');
+                return;
+            }
+
+            // Process form data
+            var bathroomHurt = formData.get('bathroom_hurt');
+            var burningSensation = formData.get('burning_sensation');
+            var pelvicDiscomfort = formData.get('pelvic_discomfort');
+
+            // Count the number of "yes" responses
+            var yesCount = [bathroomHurt, burningSensation, pelvicDiscomfort].filter(answer => answer === 'yes').length;
+
+            // Generate result message based on the count of "yes" answers
+            var resultMessage = '';
+
+            if (bathroomHurt === 'no' && burningSensation === 'no' && pelvicDiscomfort === 'no') {
+                resultMessage = 'You have no issues. If you experience any discomfort, please consult a healthcare professional.';
+            } else if (yesCount === 1) {
+                resultMessage = 'You may have a mild issue related to your urinary health. Please consult a healthcare professional.';
+            } else if (yesCount === 2) {
+                resultMessage = 'You have multiple symptoms related to your urinary health. Please consult a healthcare professional.';
+            } else if (yesCount === 3) {
+                resultMessage = 'You have significant symptoms related to your urinary health. Please consult a Urologist immediately.';
+            }
+
+            // Store result message in local storage and redirect to report.html
+            localStorage.setItem('resultMessage', resultMessage);
+            window.location.href = 'report.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body Parts Selection</title>
+    <link rel="stylesheet" href="bp.css"> <!-- Ensure the correct path -->
+</head>
+<body>
+    <div class="body-parts">
+        <h2>Select the Body Part</h2>
+        <div class="body-part-options">
+            <div class="body-part">
+                <img src="stomach.jpg" id="stomach" onclick="selectBodyPart('stomach')" alt="Stomach">
+            </div>
+            <div class="body-part">
+                <img src="ear.jpg" id="ear" onclick="selectBodyPart('ear')" alt="Ear">
+            </div>
+            <div class="body-part">
+                <img src="head.jpg" id="head" onclick="selectBodyPart('head')" alt="Head">
+            </div>
+            <div class="body-part">
+                <img src="eyes.jpg" id="eyes" onclick="selectBodyPart('eyes')" alt="Eyes">
+            </div>
+            <div class="body-part">
+                <img src="teeth.jpg" id="teeth" onclick="selectBodyPart('teeth')" alt="Teeth">
+            </div>
+            <div class="body-part">
+                <img src="private.jpg" id="private" onclick="selectBodyPart('private')" alt="Private Part">
+            </div>
+        </div>
+        <button onclick="submitBodyPart()">Submit</button>
+    </div>
+    <script>
+        let selectedBodyPart = null;
+
+        function selectBodyPart(part) {
+            selectedBodyPart = part;
+            document.querySelectorAll('.body-part img').forEach(img => img.classList.remove('selected'));
+            document.getElementById(part).classList.add('selected');
+        }
+
+        function submitBodyPart() {
+            if (selectedBodyPart) {
+                // Define the URL for each body part's quiz page
+                const quizPages = {
+                    stomach: "stomach.html",
+                    ear: "ear.html",
+                    head: "head.html",
+                    eyes: "eye.html",
+                    teeth: "teeth.html",
+                    private: "urinarypain.html"
+                };
+
+                // Redirect to the specific quiz page
+                window.location.href = quizPages[selectedBodyPart];
+            } else {
+                alert("Please select a body part!");
+            }
+        }
+    </script>
+</body>
+</html>
